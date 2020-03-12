@@ -11,6 +11,17 @@ export const clearResults = () => {
   elements.searchResPages.innerHTML = '';
 };
 
+export const highlightSelected = id => {
+  const resultsArr = Array.from(document.querySelectorAll('.results__link'));
+  resultsArr.forEach(el => {
+    el.classList.remove('results__link--active');
+  });
+
+  document
+    .querySelector(`a[href="#${id}"]`)
+    .classList.add('results__link--active');
+};
+
 const limitRecipeTitle = (title, limit = 17) => {
   const newTitle = [];
   if (title.length > limit) {
@@ -49,9 +60,9 @@ const createButton = (page, type) => `
   type === 'prev' ? page - 1 : page + 1
 }">
     <svg class="search__icon">
-        <use href="img/icons.svg#icon-triangle-${
-          type === 'prev' ? 'left' : 'right'
-        }"></use>
+      <use href="img/icons.svg#icon-triangle-${
+        type === 'prev' ? 'left' : 'right'
+      }"></use>
     </svg>
     <span>Page ${type === 'prev' ? page - 1 : page + 1}</span>
   </button>
